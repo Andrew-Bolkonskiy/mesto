@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto</title>
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body>
+  <div class="root">
+    <div class="popup">
+      <form class="popup__container">
+        <h2 class="popup__heading">Редактировать профиль</h2>
+          <input class="popup__input" type="text" name="name" required>
+          <div class="popup__line"></div>
+          <input class="popup__input" type="text" name="occupation" required>
+          <div class="popup__line"></div>
+        <input class="popup__save-btn" type="submit" value="Сохранить">
+        <div class="popup__close-btn"></div>
+      </form>
+    </div>
+
+    <header class="header">
+      <div class="header__logo"></div>
+    </header>
+
+    <section class="profile">
+      <img class="profile__image" src="./images/avatar.png" alt="фото владельца аккаунта">
+      <div class="profile__wrapper">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <button class="profile__edit-btn"></button>
+        <p class="profile__occupation">Исследователь океана</p>
+      </div>
+      
+
+      <button class="profile__add-btn"></button>
+    </section>
+
+    <section class="cards">
+      <div class="card">
+        <img class="card__image" src="./images/card-image01.jpg" alt="Каменное строение в горах">
+        <div class="card__title">
+          <p class="card__title-text">Карачаевск</p>
+          <button class="card__like-btn"></button>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card__image" src="./images/card-image02.jpg" alt="Силуэт горы вдалеке">
+        <div class="card__title">
+          <p class="card__title-text">Гора Эльбрус</p>
+          <button class="card__like-btn"></button>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card__image" src="./images/card-image03.jpg" alt="Горная вершина">
+        <div class="card__title">
+          <p class="card__title-text">Домбай</p>
+          <button class="card__like-btn"></button>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card__image" src="./images/card-image04.jpg" alt="Силуэт горы вдалеке">
+        <div class="card__title">
+          <p class="card__title-text">Гора Эльбрус</p>
+          <button class="card__like-btn"></button>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card__image" src="./images/card-image05.jpg" alt="Горная вершина">
+        <div class="card__title">
+          <p class="card__title-text">Домбай</p>
+          <button class="card__like-btn"></button>
+
+        </div>
+      </div>
+      <div class="card">
+        <img class="card__image" src="./images/card-image06.jpg" alt="Каменное строение в горах">
+        <div class="card__title">
+          <p class="card__title-text">Карачаево-Черкесия</p>
+          <button class="card__like-btn"></button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p class="footer__text">&copy;2022 Mesto Russia</p>
+    </footer>
+  </div>
+  <script src="./script/script.js"></script>
+</body>
+</html>

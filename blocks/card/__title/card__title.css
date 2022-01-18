@@ -1,0 +1,7 @@
+.card__title {
+  width: 282px;
+  height: 79px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
