@@ -1,10 +1,15 @@
 .profile__wrapper {
-  min-width: 228px;
+  display: grid;
+  grid-template-columns: minmax(189px, 294px) 24px;
+  column-gap: 18px;
+  align-items: baseline;
   width: 336px;
 }
 
 @media screen and (max-width:920px) {
   .profile__wrapper {
     width: 228px;
+    grid-template-columns: minmax(189px, 294px) 18px;
+    column-gap: 10px;
   }
 }
