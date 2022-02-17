@@ -1,6 +1,5 @@
-.popup {
-  display: flex;
-  visibility: hidden;
+.gallery {
+  display: none;
   position:fixed;
   top:0;
   justify-content: center;
@@ -9,8 +8,6 @@
   min-height:100%;
   margin: 0;
   padding: 0;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,0.900);
   z-index: 10;
-  opacity: 0;
-  transition: visibility 0.5s, opacity 0.5s linear;
 }
