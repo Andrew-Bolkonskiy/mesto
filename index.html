@@ -9,7 +9,7 @@
 </head>
 <body>
   <div class="root">
-    <div class="popup">
+    <div class="popup popup_profile">
       <div class="popup__container">
         <form class="popup__form">
           <h2 class="popup__heading">Редактировать профиль</h2>
@@ -20,7 +20,7 @@
         </form>
       </div>
     </div>
-    <div class="popup">
+    <div class="popup popup_place">
       <div class="popup__container">
         <form class="popup__form">
           <h2 class="popup__heading">Новое место</h2>
@@ -29,6 +29,13 @@
             <input class="popup__save-btn" type="submit" value="Создать" aria-label="сохранить изменения">
             <button class="popup__close-btn" type="button" aria-label="закрыть всплывающее окно"> </button>
         </form>
+      </div>
+    </div>
+    <div class="popup popup_image">
+      <div class="popup__image-wrapper">
+        <img src=" " alt="Увеличенное изображение" class="popup__image">
+        <button class="popup__close-btn" type="button" aria-label="закрыть всплывающее окно"> </button>
+        <p class="popup__image-description"></p>
       </div>
     </div>
     <main>
@@ -51,15 +58,6 @@
       <p class="footer__text">&copy;2022 Mesto Russia</p>
     </footer>
   </div>
-  <template class="template">
-    <div class="gallery">
-      <div class="gallery__image-wrapper">
-        <img src=" " alt="Увеличенное изображение" class="gallery__image">
-        <button class="gallery__close-btn" type="button" aria-label="закрыть всплывающее окно"> </button>
-        <p class="gallery__image-description"></p>
-      </div>
-    </div>
-  </template>
   <script src="./script/script.js"></script>
 </body>
 </html>
