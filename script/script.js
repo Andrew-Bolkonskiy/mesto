@@ -30,43 +30,33 @@ const initialCards = [
 function addCardsFromArray(items) {
   const cardsFragment = new DocumentFragment;
   items.forEach(function(el) {
-    const card = document.createElement('article');
-    card.classList.add('card');
-  
-    const cardDelButton = document.createElement('button');
-    cardDelButton.classList.add('card__del-btn');
-    cardDelButton.setAttribute("type", "button");
-    cardDelButton.setAttribute("aria-label", "удалить");
-  
-    const cardImage = document.createElement('img');
-    cardImage.classList.add('card__image');
-  
-    const cardTitle = document.createElement('div');
-    cardTitle.classList.add('card__title');
-  
-    const cardTitleText = document.createElement('h2');
-    cardTitleText.classList.add('card__title-text');
-  
-    const cardLikeButton = document.createElement('button');
-    cardLikeButton.classList.add('card__like-btn');
-    cardLikeButton.setAttribute("type", "button");
-    cardLikeButton.setAttribute("aria-label", "нравится");
-    
+    const cardTemplate = document.querySelector('.template').content;
+    const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+    const cardDelButton = cardElement.querySelector('.card__del-btn');
+    const cardImage = cardElement.querySelector('.card__image');
+    const cardTitleText = cardElement.querySelector('.card__title-text');
+    const cardLikeButton = cardElement.querySelector('.card__like-btn');
     cardTitleText.textContent = el.name;
     cardImage.src = el.link;
-    cardTitle.append(cardTitleText, cardLikeButton);
-    card.append(cardDelButton, cardImage, cardTitle);
     
-    cardsFragment.appendChild(card);
-
     //устанавливаем 3 обработчика
     cardLikeButton.addEventListener('click', function(){
       cardLikeButton.classList.toggle('card__like-btn_active');
+      if (cardLikeButton.classList.contains('card__like-btn_active')){
+        el.like = true;
+      } else {
+        el.like = false;
+      }
     });
+
+    //расставляем ранее проставленные лайки на карточках
+    if (el.like){
+      cardLikeButton.classList.add('card__like-btn_active')
+    }
 
     cardDelButton.addEventListener('click', function(){
       currentCards.forEach(function(element, index){
-        if (element.name == cardDelButton.closest('.card').textContent){
+        if (element.name == cardTitleText.textContent){
             currentCards.splice(index, 1);
         }
       })
@@ -81,6 +71,7 @@ function addCardsFromArray(items) {
       bigImageDescription.textContent = el.name;
       openPopup(popupImage);
     })
+    cardsFragment.appendChild(cardElement);
   });
   return cardsFragment;
 }
