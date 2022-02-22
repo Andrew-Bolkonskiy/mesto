@@ -45,7 +45,6 @@ const imageCloseButton = popupBigImage.querySelector('.popup__close-btn');
 const profileNameInput = document.querySelector('.profile__name');
 const profileOccupationInput = document.querySelector('.profile__occupation');
 
-/*Объявляем функцию для добавления на страницу карточек */
 function createCard(cardParams) {
   const cardTemplate = document.querySelector('.template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
@@ -57,7 +56,6 @@ function createCard(cardParams) {
   cardImage.src = cardParams.link;
   cardImage.alt = cardParams.name;
   
-//устанавливаем 3 обработчика
   cardLikeButton.addEventListener('click', function(){
     cardLikeButton.classList.toggle('card__like-btn_active');
   });
