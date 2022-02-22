@@ -42,6 +42,8 @@ const placeInput = popupAddCard.querySelector('.popup__input[name = place]');
 const linkInput = popupAddCard.querySelector('.popup__input[name = link]');
 const popupBigImage = document.querySelector('.popup_image');
 const imageCloseButton = popupBigImage.querySelector('.popup__close-btn');
+const profileNameInput = document.querySelector('.profile__name');
+const profileOccupationInput = document.querySelector('.profile__occupation');
 
 /*Объявляем функцию для добавления на страницу карточек */
 function createCard(cardParams) {
@@ -53,7 +55,7 @@ function createCard(cardParams) {
   const cardLikeButton = cardElement.querySelector('.card__like-btn');
   cardTitleText.textContent = cardParams.name;
   cardImage.src = cardParams.link;
-  cardImage.alt = "Изображение местности в карточке";
+  cardImage.alt = cardParams.name;
   
 //устанавливаем 3 обработчика
   cardLikeButton.addEventListener('click', function(){
@@ -66,31 +68,28 @@ function createCard(cardParams) {
 
   cardImage.addEventListener('click', function(){
     bigImage.src = cardParams.link;
+    bigImage.alt = cardParams.name;
     bigImageDescription.textContent = cardParams.name;
     openPopup(popupImage);
   });
   return cardElement;
-}
+};
 
-/* Объявляем функцию открытия попапа */
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-}
+};
 
-/* Объявляем функцию закрытия попапа */
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-}
+};
 
-/* Объявляем функцию закрытия попапа редактирования профиля по нажатию кнопки, устанавливаем значения полей инпутов */
 function saveProfileForm (evt) {
   evt.preventDefault();
-  document.querySelector('.profile__name').textContent = nameInput.value;
-  document.querySelector('.profile__occupation').textContent = jobInput.value;
+  profileNameInput.textContent = nameInput.value;
+  profileOccupationInput.textContent = jobInput.value;
   closePopup(popupEditProfile);
-}
+};
 
-//---- создание новой карточки при нажатии на кнопку создать и закрытие попапа создания новой карточки
 function saveAddCardForm (evt) {
   evt.preventDefault();
   closePopup(popupAddCard);
@@ -99,16 +98,14 @@ function saveAddCardForm (evt) {
   linkInput.value = '';
 }; 
 
-//Добавляем на страницу карточки из предоставленного массива
 initialCards.forEach(function(element){
   cardsContainer.prepend(createCard(element));
 });
 
-/* pop-up button open-close для редактирования профиля*/
 editButton.addEventListener('click', function() {
   openPopup(popupEditProfile);
-  nameInput.value = document.querySelector('.profile__name').textContent;
-  jobInput.value = document.querySelector('.profile__occupation').textContent;
+  nameInput.value = profileNameInput.textContent;
+  jobInput.value = profileOccupationInput.textContent;
 });
 
 editCloseButton.addEventListener('click', function(){
@@ -119,8 +116,6 @@ formElement.addEventListener('submit', saveProfileForm);
 
 addButton.addEventListener('click', function() {
   openPopup(popupAddCard);
-  nameInput.value = document.querySelector('.profile__name').textContent;
-  jobInput.value = document.querySelector('.profile__occupation').textContent;
 });
 
 closeAddButton.addEventListener('click', function(){
