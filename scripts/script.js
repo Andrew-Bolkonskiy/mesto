@@ -75,6 +75,8 @@ function createCard(cardParams) {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('mousedown', setOverlayListener);
+  document.addEventListener('keydown', setKeyListener);
 };
 
 function closePopup(popup) {
@@ -125,3 +127,18 @@ addForm.addEventListener('submit', saveAddCardForm);
 imageCloseButton.addEventListener('click', function() {
   closePopup(popupBigImage);
 });
+
+const setOverlayListener = function(event) {
+  const popupOpened = document.querySelector('.popup_opened');
+  if(event.target === popupOpened) {
+    closePopup(popupOpened);
+  }
+}
+
+const setKeyListener = function(event) {
+  if (event.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+}
+
