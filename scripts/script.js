@@ -29,21 +29,23 @@ const popupImage = document.querySelector('.popup_image');
 const bigImage = popupImage.querySelector('.popup__image')
 const bigImageDescription = popupImage.querySelector('.popup__image-description');
 const popupEditProfile = document.querySelector('.popup_profile');
-const editButton = document.querySelector('.profile__edit-btn');
-const editCloseButton = popupEditProfile.querySelector('.popup__close-btn');
+const buttonEditProfile = document.querySelector('.profile__edit-btn');
+const buttonClosePopup = popupEditProfile.querySelector('.popup__close-btn');
 const formElement = popupEditProfile.querySelector('.popup__form');
 const nameInput = formElement.querySelector('.popup__input[name = name]');
 const jobInput = formElement.querySelector('.popup__input[name = occupation]');
 const popupAddCard = document.querySelector('.popup_place');
-const addButton = document.querySelector('.profile__add-btn');
+const buttonAddCard = document.querySelector('.profile__add-btn');
+const buttonSave = popupAddCard.querySelector('.popup__save-btn');
 const closeAddButton = popupAddCard.querySelector('.popup__close-btn');
-const addForm = popupAddCard.querySelector('.popup__form');
+const formAddCard = popupAddCard.querySelector('.popup__form');
 const placeInput = popupAddCard.querySelector('.popup__input[name = place]');
 const linkInput = popupAddCard.querySelector('.popup__input[name = link]');
 const popupBigImage = document.querySelector('.popup_image');
-const imageCloseButton = popupBigImage.querySelector('.popup__close-btn');
+const buttonCloseImage = popupBigImage.querySelector('.popup__close-btn');
 const profileNameInput = document.querySelector('.profile__name');
 const profileOccupationInput = document.querySelector('.profile__occupation');
+const popupList = Array.from(document.querySelectorAll('.popup'));
 
 function createCard(cardParams) {
   const cardTemplate = document.querySelector('.template').content;
@@ -75,12 +77,12 @@ function createCard(cardParams) {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('mousedown', setOverlayListener);
   document.addEventListener('keydown', setKeyListener);
 };
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', setKeyListener);
 };
 
 function saveProfileForm (evt) {
@@ -96,25 +98,26 @@ function saveAddCardForm (evt) {
   cardsContainer.prepend(createCard({name: placeInput.value, link : linkInput.value}));
   placeInput.value = '';
   linkInput.value = '';
+  buttonSave.disabled = true;
 }; 
 
 initialCards.forEach(function(element){
   cardsContainer.prepend(createCard(element));
 });
 
-editButton.addEventListener('click', function() {
-  openPopup(popupEditProfile);
+buttonEditProfile.addEventListener('click', function() {
   nameInput.value = profileNameInput.textContent;
   jobInput.value = profileOccupationInput.textContent;
+  openPopup(popupEditProfile);
 });
 
-editCloseButton.addEventListener('click', function(){
+buttonClosePopup.addEventListener('click', function(){
   closePopup(popupEditProfile);
 });
 
 formElement.addEventListener('submit', saveProfileForm);
 
-addButton.addEventListener('click', function() {
+buttonAddCard.addEventListener('click', function() {
   openPopup(popupAddCard);
 });
 
@@ -122,9 +125,9 @@ closeAddButton.addEventListener('click', function(){
   closePopup(popupAddCard)
 });
 
-addForm.addEventListener('submit', saveAddCardForm);
+formAddCard.addEventListener('submit', saveAddCardForm);
 
-imageCloseButton.addEventListener('click', function() {
+buttonCloseImage.addEventListener('click', function() {
   closePopup(popupBigImage);
 });
 
@@ -133,12 +136,13 @@ const setOverlayListener = function(event) {
   if(event.target === popupOpened) {
     closePopup(popupOpened);
   }
-}
+};
 
 const setKeyListener = function(event) {
   if (event.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
   }
-}
+};
 
+popupList.forEach(popuoElement => document.addEventListener('mousedown', setOverlayListener));
