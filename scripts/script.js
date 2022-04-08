@@ -145,4 +145,4 @@ const setKeyListener = function(event) {
   }
 };
 
-popupList.forEach(popuoElement => document.addEventListener('mousedown', setOverlayListener));
+popupList.forEach(popupElement => popupElement.addEventListener('mousedown', setOverlayListener));
