@@ -95,6 +95,7 @@ function saveProfileForm (evt) {
 
 function saveAddCardForm (evt) {
   evt.preventDefault();
+  insertCard(createCard({name: placeInput.value, link: linkInput.value}));
   closePopup(popupAddCard);
   placeInput.value = '';
   linkInput.value = '';
@@ -103,8 +104,7 @@ function saveAddCardForm (evt) {
 buttonEditProfile.addEventListener('click', function() {
   nameInput.value = profileNameInput.textContent;
   jobInput.value = profileOccupationInput.textContent;
-  const formValidatorEditProfile = new FormValidator(config, popupEditProfile);
-  formValidatorEditProfile.resetValidation();
+  profileValidation.resetValidation();
   openPopup(popupEditProfile);
 });
 
