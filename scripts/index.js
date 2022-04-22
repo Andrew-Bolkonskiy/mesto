@@ -27,6 +27,7 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
 const config = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -39,12 +40,11 @@ const config = {
 const popupEditProfile = document.querySelector('.popup_profile');
 const buttonEditProfile = document.querySelector('.profile__edit-btn');
 const buttonClosePopup = popupEditProfile.querySelector('.popup__close-btn');
-const formElement = popupEditProfile.querySelector('.popup__form');
-const nameInput = formElement.querySelector('.popup__input[name = name]');
-const jobInput = formElement.querySelector('.popup__input[name = occupation]');
+const formEditProfile = popupEditProfile.querySelector('.popup__form');
+const nameInput = formEditProfile.querySelector('.popup__input[name = name]');
+const jobInput = formEditProfile.querySelector('.popup__input[name = occupation]');
 const popupAddCard = document.querySelector('.popup_place');
 const buttonAddCard = document.querySelector('.profile__add-btn');
-const buttonSave = popupAddCard.querySelector('.popup__save-btn');
 const closeAddButton = popupAddCard.querySelector('.popup__close-btn');
 const formAddCard = popupAddCard.querySelector('.popup__form');
 const placeInput = popupAddCard.querySelector('.popup__input[name = place]');
@@ -54,11 +54,26 @@ const buttonCloseImage = popupBigImage.querySelector('.popup__close-btn');
 const profileNameInput = document.querySelector('.profile__name');
 const profileOccupationInput = document.querySelector('.profile__occupation');
 const popupList = Array.from(document.querySelectorAll('.popup'));
+const cardsContainer = document.querySelector('.cards');
 
-initialCards.forEach((item) => {
+const profileValidation = new FormValidator(config, formEditProfile);
+const newCardValidation = new FormValidator(config, formAddCard);
+
+profileValidation.enableValidation();
+newCardValidation.enableValidation();
+
+function createCard(item) {
   const card = new Card(item, '.template');
   const cardElement = card.generateCard();
-  document.querySelector('.cards').prepend(cardElement);
+  return cardElement;
+}
+
+function insertCard(cardElement) {
+  cardsContainer.prepend(cardElement)
+}
+
+initialCards.forEach( (cardElement) => {
+  insertCard(createCard(cardElement))
 })
 
 function openPopup(popup) {
@@ -81,36 +96,31 @@ function saveProfileForm (evt) {
 function saveAddCardForm (evt) {
   evt.preventDefault();
   closePopup(popupAddCard);
-  const card = new Card({name: placeInput.value, link: linkInput.value}, '.template');
-  const cardElement = card.generateCard();
-  document.querySelector('.cards').prepend(cardElement);
   placeInput.value = '';
   linkInput.value = '';
-  buttonSave.disabled = true;
 };
 
 buttonEditProfile.addEventListener('click', function() {
   nameInput.value = profileNameInput.textContent;
   jobInput.value = profileOccupationInput.textContent;
   const formValidatorEditProfile = new FormValidator(config, popupEditProfile);
-  formValidatorEditProfile.enableValidation();
+  formValidatorEditProfile.resetValidation();
   openPopup(popupEditProfile);
 });
 
-buttonClosePopup.addEventListener('click', function(){
+buttonClosePopup.addEventListener('click', function() {
   closePopup(popupEditProfile);
 });
 
-formElement.addEventListener('submit', saveProfileForm);
+formEditProfile.addEventListener('submit', saveProfileForm);
 
 buttonAddCard.addEventListener('click', function() {
-  const formValidatorAddCard = new FormValidator(config, popupAddCard);
-  formValidatorAddCard.enableValidation();
+  newCardValidation.resetValidation();
   openPopup(popupAddCard);
 });
 
-closeAddButton.addEventListener('click', function(){
-  closePopup(popupAddCard)
+closeAddButton.addEventListener('click', function() {
+  closePopup(popupAddCard);
 });
 
 formAddCard.addEventListener('submit', saveAddCardForm);
