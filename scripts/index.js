@@ -63,7 +63,7 @@ profileValidation.enableValidation();
 newCardValidation.enableValidation();
 
 function createCard(item) {
-  const card = new Card(item, '.template');
+  const card = new Card(item, '.template', openPopup);
   const cardElement = card.generateCard();
   return cardElement;
 }

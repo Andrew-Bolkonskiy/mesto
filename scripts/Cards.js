@@ -1,8 +1,9 @@
 export default class Card {
-  constructor(data, cardTemplateSelector) {
+  constructor(data, cardTemplateSelector, openPopup) {
     this._title = data.name;
     this._image = data.link;
     this._cardSelector = cardTemplateSelector;
+    this._openPopup = openPopup;
     this._popupImage = document.querySelector('.popup_image');
     this._bigImage = this._popupImage.querySelector('.popup__image');
     this.buttonClosepopupImage = this._popupImage.querySelector('.popup__close-btn');
@@ -43,12 +44,7 @@ export default class Card {
   _handleOpenPopup() {
     this._bigImage.src = this._image;
     this._bigImageDescritpion.textContent = this._title;
-    this._popupImage.classList.add('popup_opened');
-  }
-
-  _handleClosePopup(){
-    this.bigImage.src = '';
-    this._popupImage.classList.remove('popup_opened');
+    this._openPopup(this._popupImage);
   }
 
   generateCard() {
