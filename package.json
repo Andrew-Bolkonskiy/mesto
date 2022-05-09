@@ -1,0 +1,22 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Learning project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andrew-Bolkonskiy/mesto.git"
+  },
+  "keywords": [
+    "mesto"
+  ],
+  "author": "Andrew Bolkonskiy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andrew-Bolkonskiy/mesto/issues"
+  },
+  "homepage": "https://github.com/Andrew-Bolkonskiy/mesto#readme"
+}
