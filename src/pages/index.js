@@ -40,8 +40,10 @@ function createCard(item){
 }
 
 // Функция добавления новой карточки при сабмите формы popupCard
-function handleAddCardFormSubmit() { 
-  section.addItem(createCard({name: placeInput.value, link: linkInput.value}));
+function handleAddCardFormSubmit() {
+  const cardText = placeInput.value;
+  const cardLink = linkInput.value;
+  section.addItem(createCard({name: cardText, link: cardLink}));
   validationAddForm.resetValidation();
   popupCard.close();
 }
@@ -52,8 +54,7 @@ function handleCardClick(link, name){
 }
 
 function handleEditProfileFormSubmit() {
-  userInfo.setUserInfo(nameInput, jobInput);
-  console.log(popupProfile._handleFormSubmit);
+  userInfo.setUserInfo(nameInput.value, jobInput.value);
   popupProfile.close();
 }
 
