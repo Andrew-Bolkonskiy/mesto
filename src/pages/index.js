@@ -25,8 +25,8 @@ const popupImage = new PopupWithImage('.popup_image');
 const userInfo = new UserInfo ({name:'.profile__name', occupation:'.profile__occupation'});
 
 // Валидация двух форм
-const validationAddForm = new FormValidator(config, formEditProfile);
-const validationProfileForm = new FormValidator(config, formAddCard);
+const validationAddForm = new FormValidator(config, formAddCard);
+const validationProfileForm = new FormValidator(config, formEditProfile);
 
 const section = new Section({items: initialCards, renderer: (item) => {
   section.addItem(createCard(item))
@@ -42,6 +42,7 @@ function createCard(item){
 // Функция добавления новой карточки при сабмите формы popupCard
 function handleAddCardFormSubmit() { 
   section.addItem(createCard({name: placeInput.value, link: linkInput.value}));
+  validationAddForm.resetValidation();
   popupCard.close();
 }
 
@@ -52,13 +53,13 @@ function handleCardClick(link, name){
 
 function handleEditProfileFormSubmit() {
   userInfo.setUserInfo(nameInput, jobInput);
+  console.log(popupProfile._handleFormSubmit);
   popupProfile.close();
 }
 
 function openPopupProfile() {
-  const user = userInfo.getUserInfo();
-  nameInput.value = user.name;
-  jobInput.value = user.occupation;
+  nameInput.value = userInfo.getUserInfo().name;
+  jobInput.value = userInfo.getUserInfo().occupation;
   validationProfileForm.resetValidation();
   popupProfile.open();
 }

@@ -24,7 +24,7 @@ export default class Card {
   }
 
   _removeCard = (evt) => {
-      evt.target.closest('.card').remove();
+      this._element.remove();
   }
 
   createCard = () => {
