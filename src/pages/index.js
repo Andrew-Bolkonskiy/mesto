@@ -14,8 +14,6 @@ import {
   jobInput,
   buttonAddCard,
   formAddCard,
-  placeInput,
-  linkInput,
   cardTemplateSelector
 } from '../utils/constants.js';
 
@@ -40,10 +38,8 @@ function createCard(item){
 }
 
 // Функция добавления новой карточки при сабмите формы popupCard
-function handleAddCardFormSubmit() {
-  const cardText = placeInput.value;
-  const cardLink = linkInput.value;
-  section.addItem(createCard({name: cardText, link: cardLink}));
+function handleAddCardFormSubmit(item) {
+  section.addItem(createCard(item));
   validationAddForm.resetValidation();
   popupCard.close();
 }
@@ -53,8 +49,8 @@ function handleCardClick(link, name){
   popupImage.open(name, link);
 }
 
-function handleEditProfileFormSubmit() {
-  userInfo.setUserInfo(nameInput.value, jobInput.value);
+function handleEditProfileFormSubmit(userData) {
+  userInfo.setUserInfo(userData.profileName, userData.occupation);
   popupProfile.close();
 }
 
@@ -79,8 +75,5 @@ popupProfile.setEventListeners();
 popupCard.setEventListeners();
 popupImage.setEventListeners();
 
-formEditProfile.addEventListener('submit', handleEditProfileFormSubmit);
 buttonEditProfile.addEventListener('click', openPopupProfile)
-
-formAddCard.addEventListener('submit',  handleAddCardFormSubmit);
 buttonAddCard.addEventListener('click', openPopupCard);

@@ -37,11 +37,9 @@ export const config = {
 export const popupEditProfile = document.querySelector('.popup_profile');
 export const buttonEditProfile = document.querySelector('.profile__edit-btn');
 export const formEditProfile = popupEditProfile.querySelector('.popup__form');
-export const nameInput = formEditProfile.querySelector('.popup__input[name = name]');
+export const nameInput = formEditProfile.querySelector('.popup__input[name = profileName]');
 export const jobInput = formEditProfile.querySelector('.popup__input[name = occupation]');
 export const popupAddCard = document.querySelector('.popup_place');
 export const buttonAddCard = document.querySelector('.profile__add-btn');
 export const formAddCard = popupAddCard.querySelector('.popup__form');
-export const placeInput = popupAddCard.querySelector('.popup__input[name = place]');
-export const linkInput = popupAddCard.querySelector('.popup__input[name = link]');
 export const cardTemplateSelector = document.querySelector('.template').content;

@@ -27,7 +27,7 @@ export default class Card {
       this._element.remove();
   }
 
-  createCard = () => {
+  createCard() {
       this._element = this._getTemplate();
       this._setEventListeners();
 
