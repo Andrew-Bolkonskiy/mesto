@@ -42,4 +42,7 @@ export const jobInput = formEditProfile.querySelector('.popup__input[name = occu
 export const popupAddCard = document.querySelector('.popup_place');
 export const buttonAddCard = document.querySelector('.profile__add-btn');
 export const formAddCard = popupAddCard.querySelector('.popup__form');
-export const cardTemplateSelector = document.querySelector('.template').content;
+export const cardTemplateSelector = '.template';
+export const popupEditAvatar = document.querySelector('.popup_edit-avatar');
+export const formEditAvatar = popupEditAvatar.querySelector('.popup__form');
+export const buttonEditAvatar = document.querySelector('.profile__image-button');

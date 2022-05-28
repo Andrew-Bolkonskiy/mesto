@@ -11,5 +11,5 @@
 
 **Адрес на GitHubPages**
 
-[Ссылка на проект на GitHub Pages](https://andrew-bolkonskiy.github.io/mesto/index.html).
+[URL-адрес проекта на GitHub Pages](https://andrew-bolkonskiy.github.io/mesto/).
 Спасибо и удачи!
