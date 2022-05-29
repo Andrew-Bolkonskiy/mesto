@@ -34,26 +34,30 @@ const formSubmitHandler = () => {
     renderLoading('.popup_profile', true);
     api.setUserInfo(nameInput.value, jobInput.value)
         .then((res) => {
-            inputsProfile.initUserInfo(res.name, res.about, res.avatar)
-            renderLoading('.popup_profile', false)
+            inputsProfile.initUserInfo(res.name, res.about, res.avatar);
+            userPopup.close();
         })
         .catch((err) => {
             console.log(err)
         })
-    userPopup.close();
+        .finally(() => {
+            renderLoading('.popup_profile', false)
+        })
+
 }
 const submitGalleryForm = (data) => {
     renderLoading('.popup_place', true);
     api.addCard(data.name, data.link)
         .then((res) => {
             cardList.addItem(createCard(res));
-            renderLoading('.popup_place', false);
+            galleryPopup.close();
         })
         .catch((err) => {
             console.log(err)
         })
-
-    galleryPopup.close();
+        .finally(() => {
+            renderLoading('.popup_place', false);
+        })
 }
 
 const api = new Api({
@@ -93,29 +97,22 @@ const cardList = new Section((item) => {
     cardList.addItem(createCard(item));
 }, '.cards')
 
-api.getInitialCards()
-    .then(res => {
-        cardList.render(res)
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+    .then(([userData, cards]) => {
+        inputsProfile.initUserInfo(userData.name, userData.about, userData.avatar);
+        inputsProfile.setUserId(userData._id);
+        cardList.render(cards);
     })
     .catch((err) => {
         console.log(err)
-    })
+    });
 
-api.getUserInfo()
-    .then(res => {
-        inputsProfile.initUserInfo(res.name, res.about, res.avatar);
-        inputsProfile.setUserId(res._id);
-    })
-    .catch((err) => {
-        console.log(err)
-    })
 const removeCard = (card) => {
     return () => {
-
         api.deleteCard(card.returnCardId())
             .then((res) => {
-                popupDeleteCard.close();
                 card.removeCard();
+                popupDeleteCard.close();
             })
             .catch((err) => {
                 console.log(err)
@@ -130,10 +127,8 @@ function renderLoading(popupSelector, isLoading) {
     } else {
         if (popupSelector === '.cards') {
             buttonElement.textContent = 'Создать';
-
         } else {
             buttonElement.textContent = 'Сохранить';
-
         }
     }
 }
@@ -157,12 +152,14 @@ const submitAvatarForm = (data) => {
     api.updateAvatarImage(data.avatar_link)
         .then((res) => {
             inputsProfile.setAvatar(data);
-            renderLoading('.popup_edit-avatar', false);
+            popupUpdateAvatar.close();
         })
         .catch((err) => {
             console.log(err)
         })
-    popupUpdateAvatar.close();
+        .finally(() => {
+            renderLoading('.popup_edit-avatar', false)
+        })
 }
 
 const popupUpdateAvatar = new PopupWithForm('.popup_edit-avatar', submitAvatarForm);
@@ -172,17 +169,3 @@ buttonEditAvatar.addEventListener('click', () => {
     validationAvatar.resetValidation();
     popupUpdateAvatar.open();
 })
-
-
-
-//Логин и пароль для нашей когорты: cohort-41 - 96eScBoG1MCkXSTAIKIfYXL2ymBZP2Ce
-/* fetch('https://mesto.nomoreparties.co/v1/cohort-41/cards', {
-  headers: {
-    authorization: '2ced76a4-143d-4487-a376-b21f6af0d75e'
-  }
-})
-  .then(res => console.log(res.json()))
-  .then((result) => {
-    console.log(result);
-  }); */
-  //96eScBoG1MCkXSTAIKIfYXL2ymBZP2Ce
