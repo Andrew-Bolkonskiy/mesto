@@ -46,3 +46,5 @@ export const cardTemplateSelector = '.template';
 export const popupEditAvatar = document.querySelector('.popup_edit-avatar');
 export const formEditAvatar = popupEditAvatar.querySelector('.popup__form');
 export const buttonEditAvatar = document.querySelector('.profile__image-button');
+export const popupConfirmDel = document.querySelector('.popup_confirm');
+export const buttonDelCard = popupConfirmDel.querySelector('.popup__save-btn');

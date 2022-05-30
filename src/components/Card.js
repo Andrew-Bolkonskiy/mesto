@@ -53,10 +53,8 @@ export default class Card {
 
     _likeButton(evt) {
         if (!evt.target.classList.contains('card__like-btn_active')) {
-            this._cardLikeButton.classList.add('card__like-btn_active');
             this._addLike();
         } else {
-            this._cardLikeButton.classList.remove('card__like-btn_active');
             this._removeLike();
         }
     }

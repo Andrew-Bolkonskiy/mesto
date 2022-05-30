@@ -92,7 +92,6 @@ const handleCardClick = (name, link) => {
     imagePopup.open(name, link);
 }
 
-const popupDeleteCard = new PopupWithConfirmation('.popup_confirm');
 const cardList = new Section((item) => {
     cardList.addItem(createCard(item));
 }, '.cards')
@@ -106,19 +105,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     .catch((err) => {
         console.log(err)
     });
-
-const removeCard = (card) => {
-    return () => {
-        api.deleteCard(card.returnCardId())
-            .then((res) => {
-                card.removeCard();
-                popupDeleteCard.close();
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }
-}
 
 function renderLoading(popupSelector, isLoading) {
     const buttonElement = document.querySelector(popupSelector).querySelector('.popup__save-btn');
@@ -134,15 +120,40 @@ function renderLoading(popupSelector, isLoading) {
 }
 
 function createCard({ name, link, likes, owner, _id }) {
-    const card = new Card({ name, link, likes, owner, _id, userId: inputsProfile.returnUserId() }, cardTemplateSelector, handleCardClick, () => {
-        popupDeleteCard.setEventListeners(removeCard(card));
-        popupDeleteCard.open();
-    }, () => {
+    const card = new Card({ name, link, likes, owner, _id, userId: inputsProfile.returnUserId() }, cardTemplateSelector, handleCardClick, 
+    () => {
+        
+    const removeCard = (data) => {
+            renderLoading('.popup_confirm', true);
+            api.deleteCard(card.returnCardId())
+            .then((res) => {
+                    card.removeCard();
+                    popupDeleteCard.close();
+                })
+                .catch((err) => {
+                    console.log(err)
+                }).finally(() => {
+                    renderLoading('.popup_confirm', false)
+                })
+    }
+    const popupDeleteCard = new PopupWithForm('.popup_confirm', removeCard);
+    popupDeleteCard.setEventListeners();
+    popupDeleteCard.open();
+    }, 
+    
+    () => {
         api.addLike(card.returnCardId())
-            .then(res => card.changeLikesCounter(res.likes.length))
-    }, () => {
+            .then((res) => {
+                card.changeLikesCounter(res.likes.length)
+                card._cardLikeButton.classList.add('card__like-btn_active')
+            })
+    }, 
+    () => {
         api.removeLike(card.returnCardId())
-            .then(res => card.changeLikesCounter(res.likes.length))
+            .then((res) => {
+                card.changeLikesCounter(res.likes.length)
+                card._cardLikeButton.classList.remove('card__like-btn_active')
+            })
     }, );
     return card.generateCard();
 }
