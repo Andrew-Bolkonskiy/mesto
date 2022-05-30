@@ -5,8 +5,6 @@ import Section from '../components/Section.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
-import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
-
 import Api from '../components/Api.js';
 import {
   config,
@@ -109,9 +107,14 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 function renderLoading(popupSelector, isLoading) {
     const buttonElement = document.querySelector(popupSelector).querySelector('.popup__save-btn');
     if (isLoading) {
-        buttonElement.textContent = 'Сохранение...';
+        if (popupSelector === '.popup_confirm') {
+            buttonElement.textContent = 'Удаление...';
+        } else {
+            buttonElement.textContent = 'Сохранение...';
+        }
+        
     } else {
-        if (popupSelector === '.cards') {
+        if (popupSelector === '.popup_place') {
             buttonElement.textContent = 'Создать';
         } else {
             buttonElement.textContent = 'Сохранить';
